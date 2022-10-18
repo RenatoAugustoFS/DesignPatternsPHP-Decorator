@@ -2,6 +2,9 @@
 
 namespace Test;
 
+use DifferDev\Web\Decorator\RemoveHTMLDecorator;
+use DifferDev\Web\Decorator\RemoveQuotesDecorator;
+use DifferDev\Web\Decorator\RemoveSpacesDecorator;
 use PHPUnit\Framework\TestCase;
 use DifferDev\Web\Input;
 use DifferDev\Web\Output;
@@ -16,8 +19,13 @@ class DecoratorTest extends TestCase
     public function setUp(): void
     {
         $this->input = new Input();
+        $this->input = new RemoveHTMLDecorator($this->input);
+        $this->input = new RemoveSpacesDecorator($this->input);
+        $this->input = new RemoveQuotesDecorator($this->input);
 
         $this->output = new Output();
+        $this->output = new RemoveHTMLDecorator($this->output);
+        $this->output = new RemoveSpacesDecorator($this->output);
     }
 
     public function testCheckGetTextValueForInput()
